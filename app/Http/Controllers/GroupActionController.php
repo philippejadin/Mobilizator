@@ -111,6 +111,45 @@ class GroupActionController extends Controller
             $events[] = $event;
         }
 
+
+        // New feature : allow user to see activities from other members in their own groups
+
+        $groups = collect();
+        // load all groups members of this groups are part of
+        foreach ($group->users as $member) {
+            $groups = $groups->merge($member->groups->pluck('id'));
+        }
+        $groups = $groups->unique();
+
+
+        // load all actions from those groups (except current one!)
+        if ($request->has('start') && $request->has('end')) {
+            $actions = Action::wherein('group_id', $groups)
+                ->where('group_id', '<>', $group->id)
+                ->with('user', 'group', 'tags')
+                ->where('start', '>', Carbon::parse($request->get('start')))
+                ->where('stop', '<', Carbon::parse($request->get('end')))
+                ->orderBy('start', 'asc')->get();
+        }
+
+        // anonimize and append actions to the event array
+
+        foreach ($actions as $action) {
+            $event['id'] = $action->id;
+            $event['group_name'] = $action->group->name;
+            $event['title'] = 'Someone is busy in' . ' (' . $action->group->name . ')';
+            $event['description'] = '';
+            $event['body'] = '';
+            $event['summary'] = '';
+            $event['location'] = '';
+            $event['start'] = $action->start->toIso8601String();
+            $event['end'] = $action->stop->toIso8601String();
+            $event['url'] = route('groups.actions.show', [$group->id, $action->id]);
+            $event['color'] = '#ccc';
+
+            $events[] = $event;
+        }
+
         return $events;
     }
 
