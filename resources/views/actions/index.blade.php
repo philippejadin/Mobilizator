@@ -10,13 +10,14 @@
         <div class="flex mb-4 justify-between">
 
             <div class="mb-2">
-                <div class="btn-group" role="group">
-                
-                    <a up-follow href="?type=grid" class="btn @if($type == 'list') btn-outline-primary @else btn-primary @endif"><i class="fa fa-calendar"></i>
-                        {{ trans('messages.grid') }}</a>
-                    <a up-follow href="?type=list" class="btn @if($type == 'grid') btn-outline-primary @else btn-primary @endif"><i class="fa fa-list"></i>
-                        {{ trans('messages.list') }}</a>
-                </div>
+               @include('partials.preferences-calendar')
+                @auth
+                    @if (Auth::user()->getPreference('availability', 'hide') == 'hide')
+                        <a class="btn btn-primary" href="?set_preference=availability&value=show">{{__('Show availability of members')}}</a>
+                    @else
+                        <a class="btn btn-primary" href="?set_preference=availability&value=hide">{{__('Hide availability of members')}}</a>
+                    @endif
+                 @endauth
             </div>
 
             @can('create-action', $group)

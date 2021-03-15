@@ -29,29 +29,9 @@ class GroupActionController extends Controller
         $view = 'grid';
 
         if (Auth::check()) {
-            if (Auth::user()->getPreference('calendar')) {
-                if (Auth::user()->getPreference('calendar') == 'list') {
-                    $view = 'list';
-                } else {
-                    $view = 'grid';
-                }
-            }
-
-            if ($request->get('type') == 'list') {
-                Auth::user()->setPreference('calendar', 'list');
+            if (Auth::user()->getPreference('calendar', 'list') == 'list') {
                 $view = 'list';
-            }
-
-            if ($request->get('type') == 'grid') {
-                Auth::user()->setPreference('calendar', 'grid');
-                $view = 'grid';
-            }
-        } else {
-            if ($request->get('type') == 'list') {
-                $view = 'list';
-            }
-
-            if ($request->get('type') == 'grid') {
+            } else {
                 $view = 'grid';
             }
         }
@@ -111,43 +91,46 @@ class GroupActionController extends Controller
             $events[] = $event;
         }
 
+        if (Auth::check()) {
+            if (Auth::user()->getPreference('availability', 'hide') == 'show') {
+                // New feature : allow user to see activities from other members in their own groups
 
-        // New feature : allow user to see activities from other members in their own groups
-
-        $groups = collect();
-        // load all groups members of this groups are part of
-        foreach ($group->users as $member) {
-            $groups = $groups->merge($member->groups->pluck('id'));
-        }
-        $groups = $groups->unique();
+                $groups = collect();
+                // load all groups members of this groups are part of
+                foreach ($group->users as $member) {
+                    $groups = $groups->merge($member->groups->pluck('id'));
+                }
+                $groups = $groups->unique();
 
 
-        // load all actions from those groups (except current one!)
-        if ($request->has('start') && $request->has('end')) {
-            $actions = Action::wherein('group_id', $groups)
-                ->where('group_id', '<>', $group->id)
-                ->with('user', 'group', 'tags')
-                ->where('start', '>', Carbon::parse($request->get('start')))
-                ->where('stop', '<', Carbon::parse($request->get('end')))
-                ->orderBy('start', 'asc')->get();
-        }
+                // load all actions from those groups (except current one!)
+                if ($request->has('start') && $request->has('end')) {
+                    $actions = Action::wherein('group_id', $groups)
+                        ->where('group_id', '<>', $group->id)
+                        ->with('user', 'group', 'tags')
+                        ->where('start', '>', Carbon::parse($request->get('start')))
+                        ->where('stop', '<', Carbon::parse($request->get('end')))
+                        ->orderBy('start', 'asc')->get();
+                }
 
-        // anonimize and append actions to the event array
+                // anonimize and append actions to the event array
 
-        foreach ($actions as $action) {
-            $event['id'] = $action->id;
-            $event['group_name'] = $action->group->name;
-            $event['title'] = 'Someone is busy in' . ' (' . $action->group->name . ')';
-            $event['description'] = '';
-            $event['body'] = '';
-            $event['summary'] = '';
-            $event['location'] = '';
-            $event['start'] = $action->start->toIso8601String();
-            $event['end'] = $action->stop->toIso8601String();
-            $event['url'] = route('groups.actions.show', [$group->id, $action->id]);
-            $event['color'] = '#ccc';
+                foreach ($actions as $action) {
+                    $event['id'] = $action->id;
+                    $event['group_name'] = $action->group->name;
+                    $event['title'] = __('Someone is busy in') . ' "' . $action->group->name . '"';
+                    $event['description'] = '';
+                    $event['body'] = '';
+                    $event['summary'] = '';
+                    $event['location'] = '';
+                    $event['start'] = $action->start->toIso8601String();
+                    $event['end'] = $action->stop->toIso8601String();
+                    $event['url'] = route('groups.actions.show', [$group->id, $action->id]);
+                    $event['color'] = '#ccc';
 
-            $events[] = $event;
+                    $events[] = $event;
+                }
+            }
         }
 
         return $events;
@@ -180,7 +163,7 @@ class GroupActionController extends Controller
             $action->name = $request->get('title');
         }
 
-        
+
         $action->group()->associate($group);
 
         return view('actions.create')
