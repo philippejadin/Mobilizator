@@ -102,6 +102,16 @@ class GroupActionController extends Controller
                 }
                 $groups = $groups->unique();
 
+                // TODO SECURITY : remove secret groups from this array
+                // Maybe : only group admins can see this information?
+                // what can be seen? 
+
+                // if current user is also member of the related group, show full info since it's visible as well
+                
+                // ->use policies!
+
+                //for instance Auth::user()->can('preview', $action) 
+                // or a verb like that
 
                 // load all actions from those groups (except current one!)
                 if ($request->has('start') && $request->has('end')) {
