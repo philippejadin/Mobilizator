@@ -22,6 +22,7 @@
         <div class="nav nav-pills sticky flex-col mr-4" style="top:8rem;" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" data-toggle="pill" href="#presentation" role="tab"
                 aria-selected="true">Presentation & logo</a>
+            <a class="nav-link" data-toggle="pill" href="#emails" role="tab">Emails</a>
             <a class="nav-link" data-toggle="pill" href="#permissions" role="tab">Permissions</a>
             <a class="nav-link" data-toggle="pill" href="#notifications" role="tab">Notifications</a>
             <a class="nav-link" data-toggle="pill" href="#custom" role="tab">Custom content</a>
@@ -87,6 +88,56 @@
                 </div>
             </div>
 
+            <div class="tab-pane fade show active" id="emails">
+                <div class="help">
+                    The system sends welcome emails on user registration and on group creation, instantly, and a week after. You can define the content of the email here 
+                </div>
+
+
+                <div class="setting">
+                    <h2>Welcome emails</h2>
+                    <div class="form-group">
+                        <div class="setting-help">
+                            Welcome email sent each time a user creates an account.
+                        </div>
+                        <x-setting-localized name="email_new_user" />
+                    </div>
+                </div>
+
+                <div class="setting">
+                    <h2>Welcome emails, follow-up</h2>
+                    <div class="form-group">
+                        <div class="setting-help">
+                            A second email sent one week after a user created an account.
+                        </div>
+                        <x-setting-localized name="email_new_user_follow_up" />
+                    </div>
+                </div>
+
+
+                <div class="setting">
+                    <h2>New group created</h2>
+                    <div class="form-group">
+                        <div class="setting-help">
+                            Welcome email sent each time a user creates a group.
+                        </div>
+                        <x-setting-localized name="email_new_group" />
+                    </div>
+                </div>
+
+                <div class="setting">
+                    <h2>New group created, follow-up</h2>
+                    <div class="form-group">
+                        <div class="setting-help">
+                            A second email sent one week after a user created an group.
+                        </div>
+                        <x-setting-localized name="email_new_group_follow_up" />
+                    </div>
+                </div>
+
+                
+            </div>
+
 
             <div class="tab-pane fade" id="permissions" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
@@ -138,7 +189,7 @@
                         {{ __('You can add html / css / js at the footer of each page here') }}
                     </div>
                     <textarea name="custom_footer" class="form-control">{!!setting('custom_footer')!!}</textarea>
-                    
+
                 </div>
 
             </div>

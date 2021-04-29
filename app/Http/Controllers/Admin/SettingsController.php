@@ -53,6 +53,31 @@ class SettingsController extends Controller
                 }
             }
 
+
+            if ($request->has('email_new_user')) {
+                foreach ($request->get('email_new_user') as $locale => $value) {
+                    setting()->localized($locale)->set('email_new_user', $value);
+                }
+            }
+
+            if ($request->has('email_new_user_follow_up')) {
+                foreach ($request->get('email_new_user_follow_up') as $locale => $value) {
+                    setting()->localized($locale)->set('email_new_user_follow_up', $value);
+                }
+            }
+
+            if ($request->has('email_new_group')) {
+                foreach ($request->get('email_new_group') as $locale => $value) {
+                    setting()->localized($locale)->set('email_new_group', $value);
+                }
+            }
+
+            if ($request->has('email_new_group_follow_up')) {
+                foreach ($request->get('email_new_group_follow_up') as $locale => $value) {
+                    setting()->localized($locale)->set('email_new_group_follow_up', $value);
+                }
+            }
+
             setting()->set('user_can_create_groups', $request->has('user_can_create_groups') ? 1 : 0);
             setting()->set('user_can_create_secret_groups', $request->has('user_can_create_secret_groups') ? 1 : 0);
             setting()->set('notify_admins_on_group_create', $request->has('notify_admins_on_group_create') ? 1 : 0);
