@@ -256,6 +256,9 @@ class GroupController extends Controller
             }
         }
 
+        event(new \App\Events\GroupCreated($group));
+
+
         flash(trans('messages.ressource_created_successfully'));
 
         return redirect()->action('GroupMembershipController@update', [$group]);

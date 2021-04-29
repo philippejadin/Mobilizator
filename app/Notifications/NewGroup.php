@@ -6,19 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Group;
 
 class NewGroup extends Notification
 {
     use Queueable;
+
+    public Group $group;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Group $group)
     {
-        //
+        $this->group = $group;
     }
 
     /**
@@ -41,9 +44,10 @@ class NewGroup extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject(trans('notifications.your_new_group') . ' : ' . $this->group->name)
+                    ->line(setting()->localized()->get('email_new_group'))
+                    ->action(trans('messages.visit'), route('groups.show', $this->group))
+                    ->line(trans('messages.thank_you'));
     }
 
     /**

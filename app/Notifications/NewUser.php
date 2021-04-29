@@ -41,9 +41,10 @@ class NewUser extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject(trans('notifications.your_new_account_on') . '  ' . setting()->get('app_name'))
+            ->line(setting()->localized()->get('email_new_user'))
+            ->action(trans('messages.visit'), url('/'))
+            ->line(trans('messages.thank_you'));
     }
 
     /**

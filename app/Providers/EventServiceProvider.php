@@ -16,6 +16,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ContentCreated' => [
             'App\Listeners\NotifyMentionedUsers',
         ],
+        'App\Events\GroupCreated' => [
+            'App\Listeners\NotifyNewGroupOwner',
+        ],
+        'Illuminate\Auth\Events\Registered' => [
+            'App\Listeners\NotifyNewUser',
+        ],
     ];
 
     /**
