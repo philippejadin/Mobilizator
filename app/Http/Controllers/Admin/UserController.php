@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use \App\Tables\AdminUsersTable;
 
 class UserController extends Controller
 {
@@ -13,9 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //$users = \App\User::where('verified', 1)->get();
-        $users = \App\User::get();
-
-        return view('admin.user.index')->with('users', $users);
+        $table = (new AdminUsersTable())->setup();
+    
+        return view('admin.user.index')->with('table', $table);
     }
 }

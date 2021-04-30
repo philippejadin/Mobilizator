@@ -383,7 +383,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('admin/settings', 'Admin\SettingsController@index');
         Route::post('admin/settings', 'Admin\SettingsController@update');
 
-        Route::resource('admin/user', 'Admin\UserController');
+        Route::get('admin/user', 'Admin\UserController@index')->name('admin.users');
         Route::get('admin/insights', 'Admin\InsightsController@index')->name('admin.insights');
 
         Route::get('admin/undo', 'UndoController@index')->name('admin.undo');

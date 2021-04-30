@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed4f5fef82846e9cf94d79b518358049",
+    "content-hash": "276e20ad6245363daae3854aafe52c65",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3545,6 +3545,152 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.10.4"
             },
             "time": "2020-12-20T10:01:03+00:00"
+        },
+        {
+            "name": "okipa/laravel-html-helper",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Okipa/laravel-html-helper.git",
+                "reference": "1d6d333fbe0893e265d1331f82a30fb7c40a3c70"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Okipa/laravel-html-helper/zipball/1d6d333fbe0893e265d1331f82a30fb7c40a3c70",
+                "reference": "1d6d333fbe0893e265d1331f82a30fb7c40a3c70",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0||^8.0",
+                "php": "^7.4||^8.0"
+            },
+            "require-dev": {
+                "nunomaduro/larastan": "^0.6",
+                "orchestra/testbench": "^5.0||^6.0",
+                "phpmd/phpmd": "^2.8",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Okipa\\LaravelHtmlHelper\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arthur LORENT",
+                    "email": "arthur.lorent@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Useful helpers to dynamically generate clean HTML with Laravel.",
+            "homepage": "https://github.com/Okipa/laravel-html-helper",
+            "keywords": [
+                "generate",
+                "generation",
+                "generator",
+                "helper",
+                "html",
+                "laravel",
+                "okipa",
+                "package",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/Okipa/laravel-html-helper/issues",
+                "source": "https://github.com/Okipa/laravel-html-helper/tree/2.0.0"
+            },
+            "time": "2020-11-14T14:22:59+00:00"
+        },
+        {
+            "name": "okipa/laravel-table",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Okipa/laravel-table.git",
+                "reference": "409ca055d3339410b6a87d10aec5537591359a6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Okipa/laravel-table/zipball/409ca055d3339410b6a87d10aec5537591359a6e",
+                "reference": "409ca055d3339410b6a87d10aec5537591359a6e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "illuminate/support": "^7.0||^8.0",
+                "okipa/laravel-html-helper": "^2.0",
+                "php": "^7.4||^8.0"
+            },
+            "require-dev": {
+                "nunomaduro/larastan": "^0.6",
+                "orchestra/testbench": "^5.0||^6.0",
+                "phpmd/phpmd": "^2.8",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Okipa\\LaravelTable\\LaravelTableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Okipa\\LaravelTable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arthur LORENT",
+                    "email": "arthur.lorent@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate tables from Eloquent models.",
+            "homepage": "https://github.com/Okipa/laravel-table",
+            "keywords": [
+                "Lists",
+                "eloquent",
+                "generate",
+                "generation",
+                "generator",
+                "html",
+                "laravel",
+                "list",
+                "okipa",
+                "package",
+                "php",
+                "table",
+                "tables"
+            ],
+            "support": {
+                "issues": "https://github.com/Okipa/laravel-table/issues",
+                "source": "https://github.com/Okipa/laravel-table/tree/4.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/arthurlorent",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://ko-fi.com/arthurlorent",
+                    "type": "ko_fi"
+                }
+            ],
+            "time": "2021-04-11T10:03:26+00:00"
         },
         {
             "name": "opis/closure",
